@@ -85,6 +85,7 @@ The objective of ShopSphere is to build a scalable Azure-based data platform tha
 ```
 
 > The architecture will be updated as each component is implemented.
+> ![ShopSphere Azure Data Platform Architecture](./shopsphere-architecture.png)
 
 ---
 
