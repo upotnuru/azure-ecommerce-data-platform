@@ -48,44 +48,9 @@ The objective of ShopSphere is to build a scalable Azure-based data platform tha
 
 ## 🏗️ Architecture
 
-### Planned Architecture
-
-```text
-                         DATA SOURCES
-                              |
-                 +------------+------------+
-                 |                         |
-              BATCH                    REAL-TIME
-                 |                         |
-                 v                         v
-        Azure Data Factory           Azure Event Hubs
-                 |                         |
-                 +------------+------------+
-                              |
-                              v
-                     Azure Data Lake
-                          Gen2
-                              |
-                +-------------+-------------+
-                |             |             |
-              BRONZE        SILVER         GOLD
-                |             |             |
-                +-------------+-------------+
-                              |
-                              v
-                       Azure Databricks
-                        PySpark + Delta
-                              |
-                              v
-                       Azure Synapse
-                          Analytics
-                              |
-                              v
-                       BI / Analytics
-```
+ ![ShopSphere Azure Data Platform Architecture](./shopsphere-architecture.png)
 
 > The architecture will be updated as each component is implemented.
-> ![ShopSphere Azure Data Platform Architecture](./shopsphere-architecture.png)
 
 ---
 
