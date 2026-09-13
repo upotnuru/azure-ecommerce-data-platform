@@ -19,7 +19,19 @@ This document defines the structure and meaning of the datasets used in the Shop
 
 ## Products
 
-To be defined.
+| Column | Data Type | Description |
+|---|---|---|
+| product_id | String | Unique product identifier |
+| product_name | String | Name of the product |
+| category | String | Product category |
+| subcategory | String | Product subcategory |
+| brand | String | Product brand |
+| price | Decimal | Selling price of the product |
+| cost | Decimal | Cost of the product |
+| stock_quantity | Integer | Available inventory quantity |
+| supplier | String | Product supplier |
+| product_status | String | Current product status |
+| created_date | Date | Date the product was added |
 
 ## Orders
 
