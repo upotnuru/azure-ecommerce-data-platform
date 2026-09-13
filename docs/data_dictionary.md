@@ -52,4 +52,15 @@ This document defines the structure and meaning of the datasets used in the Shop
 
 ## Payments
 
-To be defined.
+| Column | Data Type | Description |
+|---|---|---|
+| payment_id | String | Unique payment transaction identifier |
+| order_id | String | Identifier of the associated order |
+| customer_id | String | Identifier of the customer making the payment |
+| payment_timestamp | Timestamp | Date and time when the payment was processed |
+| payment_method | String | Payment method used |
+| amount | Decimal | Payment amount |
+| currency | String | Currency used for the transaction |
+| payment_status | String | Current payment status |
+| transaction_reference | String | External payment transaction reference |
+| failure_reason | String | Reason for payment failure, if applicable |
