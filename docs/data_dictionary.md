@@ -35,7 +35,20 @@ This document defines the structure and meaning of the datasets used in the Shop
 
 ## Orders
 
-To be defined.
+| Column | Data Type | Description |
+|---|---|---|
+| order_id | String | Unique order identifier |
+| customer_id | String | Identifier of the customer who placed the order |
+| product_id | String | Identifier of the purchased product |
+| order_timestamp | Timestamp | Date and time when the order was placed |
+| quantity | Integer | Number of units purchased |
+| unit_price | Decimal | Selling price per unit at the time of purchase |
+| discount_amount | Decimal | Discount applied to the order |
+| total_amount | Decimal | Final order amount after discount |
+| payment_method | String | Payment method used for the order |
+| order_status | String | Current status of the order |
+| shipping_city | String | Delivery city |
+| shipping_state | String | Delivery state |
 
 ## Payments
 
