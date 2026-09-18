@@ -112,10 +112,7 @@ ADLS Gen2
 │   └── payments/
 │
 ├── gold/
-│   ├── sales/
-│   ├── customer_metrics/
-│   ├── product_metrics/
-│   └── fraud_metrics/
+|   ├── customer_summary/
 │
 └── quarantine/
     ├── customers/
