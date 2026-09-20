@@ -112,7 +112,8 @@ ADLS Gen2
 │   └── payments/
 │
 ├── gold/
-|   ├── customer_summary/
+|    ├── customer_summary/
+|    └── sales_summary/
 │
 └── quarantine/
     ├── customers/
@@ -285,6 +286,10 @@ azure-ecommerce-data-platform/
 - Gold Customer Summary Data Flow
 - Gold Customer Summary pipeline
 - Successful pipeline execution and output verification
+- Gold Sales Summary dataset
+- Gold Sales Summary Data Flow
+- Gold Sales Summary pipeline
+- Successful Gold Sales Summary execution and output verification
 
 ### 🔄 In Progress
 
