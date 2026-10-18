@@ -24,7 +24,7 @@ ShopSphere demonstrates how to organize these workflows into reusable data pipel
 
 ## Architecture
 
-![ShopSphere Implemented Architecture](architecture/shopsphere-implemented-architecture.png)
+![ShopSphere Implemented Architecture](shopsphere-implemented-architecture.png)
 
 The implemented architecture uses Azure Data Factory for orchestration and Mapping Data Flows for transformations, with ADLS Gen2 providing the storage layers.
 
