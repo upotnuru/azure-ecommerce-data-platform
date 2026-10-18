@@ -1,0 +1,6 @@
+payment_id,order_id,payment_timestamp,payment_method,amount,payment_status
+PAY001,O001,2026-09-20T10:16:00Z,UPI,950,Success
+PAY002,O002,2026-09-21T12:31:00Z,Credit Card,1100,Success
+PAY003,O003,2026-09-22T09:46:00Z,Debit Card,750,Success
+PAY004,O004,2026-09-23T10:01:00Z,UPI,1200,Pending
+PAY005,O005,2026-09-24T14:21:00Z,Net Banking,975,Success
