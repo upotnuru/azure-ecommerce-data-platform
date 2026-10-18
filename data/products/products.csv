@@ -1,0 +1,6 @@
+product_id,product_name,category,subcategory,brand,unit_price,cost_price,created_date
+P001,Wireless Mouse,Electronics,Accessories,TechNova,500,300,2026-01-10
+P002,Bluetooth Headphones,Electronics,Audio,SoundPeak,1200,750,2026-02-15
+P003,Notebook,Stationery,Paper,WriteWell,250,100,2026-03-05
+P004,USB-C Cable,Electronics,Accessories,ConnectPro,350,180,2026-04-12
+P005,Office Chair,Furniture,Seating,ComfortSpace,4500,3000,2026-05-20
