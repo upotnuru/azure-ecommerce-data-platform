@@ -1,0 +1,6 @@
+customer_id,first_name,last_name,email,city,state,signup_date,customer_segment
+C001,Rahul,Sharma,rahul.example@example.com,Hyderabad,Telangana,2026-01-15,Regular
+C002,Ananya,Reddy,ananya.example@example.com,Vizag,Andhra Pradesh,2026-02-20,Premium
+C003,Arjun,Kumar,arjun.example@example.com,Vijayawada,Andhra Pradesh,2026-03-10,Regular
+C004,Meera,Patel,meera.example@example.com,Bengaluru,Karnataka,2026-04-05,Premium
+C005,Kiran,Das,kiran.example@example.com,Chennai,Tamil Nadu,2026-05-12,Regular
