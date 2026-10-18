@@ -1,315 +1,214 @@
 # ShopSphere — Azure Data Engineering Platform
 
-> An end-to-end Azure data engineering project for processing e-commerce data using batch and real-time data pipelines.
+An end-to-end, hands-on Azure data engineering project for ingesting, cleansing, transforming and preparing e-commerce data for analytics using Azure Data Factory and Azure Data Lake Storage Gen2.
 
-## 📌 Project Overview
+## Project Overview
 
-**ShopSphere** is a production-style e-commerce data platform built on Microsoft Azure.
+**ShopSphere** demonstrates a medallion-style data pipeline architecture for four e-commerce data domains: customers, products, orders and payments.
 
-The goal of this project is to design and implement an end-to-end data engineering solution that ingests data from multiple sources, stores it in a scalable data lake, transforms and validates the data, and produces business-ready datasets for analytics.
+The implemented solution uses Azure Data Factory (ADF) to orchestrate ingestion and transformation workflows, while Azure Data Lake Storage Gen2 (ADLS Gen2) stores raw, curated and business-ready datasets.
 
-The platform will support both **batch processing** and **real-time data processing**.
+The project includes Bronze, Silver and Gold layers, business summary transformations, and a watermark-based incremental processing workflow for orders.
 
----
-
-## 🎯 Business Problem
-
-An e-commerce company generates large volumes of data from customers, products, orders, and payments.
-
-This data comes from different sources and needs to be:
-
-- Ingested reliably
-- Stored centrally
-- Cleaned and validated
-- Processed efficiently
-- Available for analytical workloads
-- Monitored for failures and data-quality issues
-
-The objective of ShopSphere is to build a scalable Azure-based data platform that addresses these requirements.
+> **Project type:** Personal portfolio project  
+> **Current scope:** Azure Data Factory + ADLS Gen2  
+> **Status:** Core batch processing implemented; incremental validation and migration verification remain.
 
 ---
 
-## 🎯 Project Objectives
+## Business Problem
 
-- Build an end-to-end Azure Data Engineering platform
-- Implement a scalable data lake using **Azure Data Lake Storage Gen2**
-- Build automated data ingestion pipelines using **Azure Data Factory**
-- Implement **Bronze, Silver, and Gold** data layers
-- Process large datasets using **Azure Databricks and PySpark**
-- Implement **Delta Lake** for reliable data storage
-- Support incremental data processing
-- Implement data-quality validation and error handling
-- Implement real-time data ingestion using **Azure Event Hubs**
-- Build analytical datasets using **Azure Synapse Analytics**
-- Implement monitoring and pipeline failure handling
-- Implement source control and CI/CD practices
+E-commerce platforms generate data across customers, products, orders and payments. Before this data can support meaningful analysis, it must be ingested, cleaned, standardized and transformed into reliable datasets.
 
----
+ShopSphere demonstrates how to organize these workflows into reusable data pipelines and produce business-ready outputs for customer and product performance analysis.
 
-## 🏗️ Architecture
+## Architecture
 
- ![ShopSphere Azure Data Platform Architecture](./shopsphere-architecture.png)
+![ShopSphere Implemented Architecture](architecture/shopsphere-implemented-architecture.png)
 
-> The architecture will be updated as each component is implemented.
+The implemented architecture uses Azure Data Factory for orchestration and Mapping Data Flows for transformations, with ADLS Gen2 providing the storage layers.
 
----
-
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Technology | Purpose |
 |---|---|
-| Azure Data Factory | Data ingestion and pipeline orchestration |
-| Azure Data Lake Storage Gen2 | Centralized cloud data lake |
-| Azure Databricks | Data processing and transformation |
-| Apache Spark / PySpark | Distributed data processing |
-| Delta Lake | Reliable storage and ACID transactions |
-| Azure Event Hubs | Real-time event ingestion |
-| Azure Synapse Analytics | Analytical data serving |
-| Power BI | Data visualization and reporting |
-| Git / GitHub | Source control and version management |
+| Azure Data Factory | Pipeline orchestration and data transformation |
+| Azure Data Lake Storage Gen2 | Data lake storage |
+| ADF Mapping Data Flows | Cleansing, joins, aggregations and transformations |
+| CSV | Source and output data format |
+| Git and GitHub | Source control and project documentation |
 
 ---
 
-## 📊 Data Domains
+## Data Domains
 
-The project will work with four primary data domains:
+- **Customers:** Customer profile and registration information.
+- **Products:** Product details, categories, brands and pricing.
+- **Orders:** Order transactions, quantities, prices and discounts.
+- **Payments:** Payment transaction information and status.
 
-### Customers
+## Medallion Architecture
 
-Customer profile and registration information.
+### 1. Bronze — Raw Data
 
-### Products
-
-Product, category, brand, price, and cost information.
-
-### Orders
-
-Customer orders, products purchased, quantities, discounts, and order status.
-
-### Payments
-
-Payment transactions, payment methods, amounts, and payment status.
-
----
-
-## 🗂️ Data Lake Architecture
-
-The data lake follows a **Medallion Architecture**.
+Stores source CSV data for customers, products, orders and payments in ADLS Gen2.
 
 ```text
-ADLS Gen2
-│
-├── bronze/
-│   ├── customers/
-│   ├── products/
-│   ├── orders/
-│   └── payments/
-│
-├── silver/
-│   ├── customers/
-│   ├── products/
-│   ├── orders/
-│   └── payments/
-│
-├── gold/
-|    ├── customer_summary/
-|    |── sales_summary/
-|    |── product_summary/
-│
-└── quarantine/
-    ├── customers/
-    ├── products/
-    ├── orders/
-    └── payments/
+shopsphere/bronze/
+├── customers/
+├── products/
+├── orders/
+└── payments/
 ```
 
-### Bronze Layer
+### 2. Silver — Curated Data
 
-Stores raw data received from source systems with minimal transformation.
-
-### Silver Layer
-
-Contains cleaned, validated, standardized, and deduplicated data.
-
-### Gold Layer
-
-Contains business-ready datasets optimized for analytical use cases.
-
-### Quarantine Layer
-
-Stores invalid or rejected records for investigation instead of silently discarding them.
-
----
-
-## 🔄 Batch Data Flow
-
-The planned batch pipeline:
+ADF Mapping Data Flows cleanse and standardize the four source domains and write curated datasets.
 
 ```text
-Source Systems
-      ↓
-Azure Data Factory
-      ↓
-ADLS Gen2 — Bronze
-      ↓
-Azure Databricks
-      ↓
-Data Quality & Transformation
-      ↓
-Silver
-      ↓
-Business Transformations
-      ↓
-Gold
-      ↓
-Azure Synapse Analytics
+shopsphere/silver/curated/
+├── customers/
+├── products/
+├── orders/
+└── payments/
 ```
 
----
+### 3. Gold — Business-Ready Data
 
-## ⚡ Real-Time Data Flow
+Gold transformations combine curated datasets and calculate business metrics.
 
-The planned real-time pipeline:
+| Output | Example metrics |
+|---|---|
+| Customer Summary | Total orders, total spend, average order value, last order date |
+| Sales Summary | Total quantity, total sales, average selling price, total discount |
+| Product Summary | Quantity sold, total sales, discounts and average selling price |
+
+Output paths:
 
 ```text
-Transaction Events
-       ↓
-Azure Event Hubs
-       ↓
-Azure Databricks
-       ↓
-Structured Streaming
-       ↓
-Delta Lake
-       ↓
-Gold Layer
-       ↓
-Analytics
+shopsphere/gold/
+├── customer_summary/
+├── sales_summary/
+└── product_summary/
 ```
 
----
-
-## 🧪 Data Quality
-
-The platform will implement data-quality checks including:
-
-- Null-value validation
-- Duplicate detection
-- Data-type validation
-- Invalid business values
-- Referential integrity
-- Schema validation
-- Invalid record handling
-
-Records that fail validation will be moved to the **Quarantine** layer.
+These outputs have been generated and verified in the original Azure environment.
 
 ---
 
-## 📈 Planned Business Metrics
+## Incremental Orders Processing
 
-The final platform will support analytics such as:
+ShopSphere includes a watermark-based incremental processing workflow for orders.
 
-- Total revenue
-- Total orders
-- Average order value
-- Revenue by category
-- Revenue by location
-- Top-selling products
-- Top customers
-- Payment success/failure rates
-- Cancelled orders
-- Suspicious transactions
+The workflow uses a control file to store the last processed timestamp and passes that value into a parameterized Data Flow.
+
+```text
+Read watermark
+      ↓
+Identify the orders watermark
+      ↓
+Filter orders newer than the watermark
+      ↓
+Process eligible records
+      ↓
+Calculate the latest processed timestamp
+      ↓
+Update the watermark control file
+```
+
+Control file:
+
+```text
+shopsphere/control/watermark.csv
+```
+
+The workflow has successfully executed in a no-new-data scenario. A positive end-to-end test with a new record, including confirmation that the watermark advances correctly, remains to be completed.
 
 ---
 
-## 📁 Repository Structure
+## Validation and Testing
+
+The following work has been completed in the original Azure environment:
+
+- Validated the Bronze-to-Silver ingestion pipelines.
+- Validated the Silver cleansing Data Flows.
+- Executed the Gold Customer Summary pipeline and verified its output.
+- Executed the Gold Sales Summary pipeline and verified its output.
+- Executed the Gold Product Summary pipeline and verified its output.
+- Executed the Orders incremental workflow in a no-new-data scenario.
+- Tested the watermark update and copy workflow.
+
+Final migration and end-to-end regression testing will be performed after deployment to the new Azure subscription.
+
+## Repository Structure
+
+The repository is intended to contain the following project assets. Folder contents should reflect the files actually committed.
 
 ```text
 azure-ecommerce-data-platform/
-│
 ├── README.md
-│
 ├── architecture/
-│   └── architecture.png
-│
-├── adf/
-│   ├── pipelines/
-│   ├── datasets/
-│   └── linked-services/
-│
-├── databricks/
-│   ├── bronze/
-│   ├── silver/
-│   ├── gold/
-│   └── streaming/
-│
-├── sql/
-│   ├── ddl/
-│   ├── views/
-│   └── procedures/
-│
-├── scripts/
-│   └── data_generator/
-│
-├── tests/
-│
+│   └── shopsphere-implemented-architecture.png
+├── data/
+│   ├── customers/
+│   ├── products/
+│   ├── orders/
+│   └── payments/
 └── docs/
-    ├── data_dictionary.md
-    ├── data_quality.md
-    └── design_decisions.md
+    ├── pipeline-design.md
+    ├── data-dictionary.md
+    └── testing-and-validation.md
 ```
 
----
-## 🚧 Project Status
+Azure Data Factory ARM exports and pipeline definitions can also be added after reviewing them for secrets and environment-specific configuration. Do not commit passwords, access keys, SAS tokens or other credentials.
 
-**Status:** In Development
+## Current Project Status
 
-### ✅ Completed
+### Completed
 
-- Project requirements and business use cases
-- GitHub repository setup
-- Initial architecture design
-- Azure Data Lake Storage Gen2 setup
-- Azure Data Factory setup
-- ADLS Gen2 Bronze layer structure
-- Bronze data ingestion for:
-  - Customers
-  - Products
-  - Orders
-  - Payments
-- Silver layer transformation and cleansing for all four domains
-- Curated Silver datasets for:
-  - Customers
-  - Products
-  - Orders
-  - Payments
-- Gold Customer Summary dataset
-- Gold Customer Summary Data Flow
-- Gold Customer Summary pipeline
-- Successful pipeline execution and output verification
-- Gold Sales Summary dataset
-- Gold Sales Summary Data Flow
-- Gold Sales Summary pipeline
-- Successful Gold Sales Summary execution and output verification
-- Gold Product Summary dataset
-- Gold Product Summary Data Flow
-- Gold Product Summary pipeline
-- Successful Gold Product Summary execution and output verification
+- Azure Data Lake Storage Gen2 setup.
+- Azure Data Factory setup and orchestration.
+- Bronze ingestion for customers, products, orders and payments.
+- Silver cleansing and curated outputs for all four domains.
+- Gold Customer Summary Data Flow and pipeline.
+- Gold Sales Summary Data Flow and pipeline.
+- Gold Product Summary Data Flow and pipeline.
+- Successful execution and output verification for the three Gold pipelines.
+- Orders watermark-based incremental workflow implementation.
+- Implemented architecture diagram and project documentation updates.
 
-### 🔄 In Progress
+### Remaining
 
-- Gold business datasets and analytical transformations
-- Additional business metrics and aggregations
+- Complete a positive new-record test for incremental Orders processing.
+- Verify the project after migration to the new Azure subscription.
+- Review the GitHub repository and finalize supporting documentation.
+- Perform final end-to-end regression testing.
 
-### 📋 Planned
+## Future Enhancements
 
-- Azure Databricks and PySpark processing
-- Delta Lake implementation
-- Incremental data processing
-- Data-quality framework and quarantine handling
-- Azure Event Hubs real-time ingestion
-- Structured Streaming
-- Azure Synapse Analytics
-- Power BI dashboards
-- Monitoring and alerting
-- CI/CD implementation
+These are planned extensions, not part of the currently verified implementation:
+
+- Azure Databricks and PySpark transformations.
+- Delta Lake storage and transaction handling.
+- Automated data-quality framework and quarantine handling.
+- Azure Event Hubs and real-time streaming.
+- Azure Synapse Analytics.
+- Power BI dashboards.
+- Enhanced monitoring, alerting and recovery.
+- CI/CD and automated deployment.
+- Expanded automated testing.
+
+## Learning Outcomes
+
+This project provides hands-on practice with:
+
+- Azure Data Factory pipeline orchestration.
+- ADLS Gen2 folder and dataset organization.
+- Mapping Data Flow transformations, joins and aggregations.
+- Medallion-style data lake design.
+- Watermark-based incremental processing.
+- Pipeline validation, execution troubleshooting and GitHub documentation.
+
+## Disclaimer
+
+ShopSphere is a personal learning and portfolio project. It is not presented as a production deployment. Reproducing it may require creating Azure resources, configuring linked services and credentials, and updating environment-specific settings.
